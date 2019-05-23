@@ -6,8 +6,6 @@ const methodOverride = require('method-override');
 
 const app = express(); 						// create our app w/ express
 const webport = process.env.PORT || 8080; 				// set the port
-const tcpport = process.env.TCPPORT || 11234
-const host = process.env.HOST || '134.209.123.181'
 
 // configuration ===============================================================
 app.use(express.static('./public')); 		// set the static files location /public/img will be /img for users
