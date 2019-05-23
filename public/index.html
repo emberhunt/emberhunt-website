@@ -38,7 +38,7 @@
 					<div class="form-group">
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" placeholder="Command" ng-model="formData.text">
+						<input id="send-command" type="text" class="form-control input-lg text-center" autocomplete="off" placeholder="Command" ng-model="formData.text">
 
 					</div>
 					<button type="submit" class="btn btn-primary btn-lg" ng-click="sendCommand()">Send</button>

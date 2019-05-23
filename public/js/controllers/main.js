@@ -4,6 +4,7 @@ angular.module('gameController', [])
 	.controller('mainController', ['$scope','$http','Game', function($scope, $http, Game) {
 		$scope.formData = {};
 		$scope.loading = true;
+		$scope.allData = '';
 
 		// GET =====================================================================
 		// when landing on the page, get all todos and show them
@@ -37,6 +38,7 @@ angular.module('gameController', [])
 				Game.sendCommand($scope.formData).success((data) => {
 					$scope.loading = false;
 					$scope.allData += data;
+					document.getElementById('send-command').value = '';
 					window.setTimeout(() => {
 						var elem = document.getElementById('command-window');
 						elem.scrollTop = elem.scrollHeight;
