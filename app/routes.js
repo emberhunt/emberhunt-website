@@ -1,11 +1,12 @@
 const net = require('net');
 
-function sendCommand(command, res) {
-    const tcpport = process.env.TCPPORT || 11234
-    const host = process.env.HOST || 'game'
+function sendCommandInternal(command, res) {
+    const tcpport = process.env.GAMETCPPORT || 11234
+    const host = process.env.GAMEHOST || 'game'
 
     // Create a new TCP client.
     const client = new net.Socket();
+    client.on('error', (err) => {console.log(err)});
     // Send a connection request to the server.
     client.connect({ port: tcpport, host: host }, function() {
         // If there is no error, the server has accepted the request and created a new 
@@ -36,11 +37,15 @@ function sendCommand(command, res) {
 module.exports = function (app) {
 
     app.get('/api/fps', function (req, res ) {
-        sendCommand('fps\n', res);
+        sendCommandInternal('fps\n', res);
     });
 
     app.get('/api/help', function (req, res ) {
-        sendCommand('help\n', res);
+        sendCommandInternal('help\n', res);
+    });
+
+    app.post('/api/sendCommand', (req, res) => {
+        sendCommandInternal(req.body.text + "\n", res);
     });
 
     // application -------------------------------------------------------------

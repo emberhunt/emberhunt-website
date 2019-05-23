@@ -15,6 +15,7 @@
 	<style>
 		html 					{ overflow-y:scroll; }
 		body 					{ padding-top:50px; }
+		#send-form 	 			{ margin-bottom:50px; }
 	</style>
 
 	<!-- SPELLS -->
@@ -28,15 +29,22 @@
 <!-- SET THE CONTROLLER -->
 <body ng-controller="mainController">
 	<div class="container">
-
-		<!-- HEADER AND FPS -->
-		<button type="button" class="btn btn-primary" ng-click="getFPS()">Get FPS</button>
-		<div class="jumbotron text-center">
-			<h1><span class="label label-info">{{ fps }}</span></h1>
+		<div id="command-window" class="panel panel-default" style="height: 500px;max-height: 500px;overflow: auto">
+			<pre class=".pre-scrollable" style="height: 0;border:0;padding:0">{{ allData }}</pre>
 		</div>
+		<div id="send-form" class="row">
+			<div class="col-sm-4 col-sm-offset-4 text-center">
+				<form>
+					<div class="form-group">
 
-		<button type="button" class="btn btn-primary" ng-click="getHelp()">Help</button>
-		<p>{{ help }}</p>
+						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+						<input type="text" class="form-control input-lg text-center" placeholder="Command" ng-model="formData.text">
+
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg" ng-click="sendCommand()">Send</button>
+				</form>
+			</div>
+		</div>
 
 		<div class="text-center text-muted">
 			<p>A demo by SecurityRisk.</p>
