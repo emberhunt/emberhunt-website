@@ -2,7 +2,7 @@ const net = require('net');
 
 function sendCommand(command, res) {
     const tcpport = process.env.TCPPORT || 11234
-    const host = process.env.HOST || '134.209.123.181'
+    const host = process.env.HOST || 'game'
 
     // Create a new TCP client.
     const client = new net.Socket();
