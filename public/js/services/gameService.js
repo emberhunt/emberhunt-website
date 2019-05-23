@@ -9,6 +9,9 @@ angular.module('gameService', [])
 			},
 			getHelp : function() {
 				return $http.get('/api/help');
+			},
+			sendCommand : function(command) {
+				return $http.post('/api/sendCommand', command);
 			}
 		}
 	}]);
