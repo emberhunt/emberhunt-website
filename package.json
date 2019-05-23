@@ -1,0 +1,27 @@
+{
+  "name": "emberhunt-website",
+  "version": "1.0.0",
+  "description": "The website for controlling Emberhunt's server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SecurityRisk/emberhunt-website.git"
+  },
+  "author": "SecurityRisk",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SecurityRisk/emberhunt-website/issues"
+  },
+  "homepage": "https://github.com/SecurityRisk/emberhunt-website#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.5.10",
+    "morgan": "^1.9.1",
+    "net": "^1.0.2"
+  }
+}

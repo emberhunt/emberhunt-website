@@ -1,0 +1,48 @@
+<!doctype html>
+
+<!-- ASSIGN OUR ANGULAR MODULE -->
+<html ng-app="emberhuntGame">
+<head>
+	<!-- META -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
+
+	<title>Emberhunt Game API</title>
+
+	<!-- SCROLLS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+	<style>
+		html 					{ overflow-y:scroll; }
+		body 					{ padding-top:50px; }
+	</style>
+
+	<!-- SPELLS -->
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script><!-- load angular -->
+
+	<script src="js/controllers/main.js"></script> <!-- load up our controller -->
+	<script src="js/services/gameService.js"></script> <!-- load our todo service -->
+	<script src="js/core.js"></script> <!-- load our main application -->
+
+</head>
+<!-- SET THE CONTROLLER -->
+<body ng-controller="mainController">
+	<div class="container">
+
+		<!-- HEADER AND FPS -->
+		<button type="button" class="btn btn-primary" ng-click="getFPS()">Get FPS</button>
+		<div class="jumbotron text-center">
+			<h1><span class="label label-info">{{ fps }}</span></h1>
+		</div>
+
+		<button type="button" class="btn btn-primary" ng-click="getHelp()">Help</button>
+		<p>{{ help }}</p>
+
+		<div class="text-center text-muted">
+			<p>A demo by SecurityRisk.</p>
+		</div>
+
+	</div>
+
+</body>
+</html>
