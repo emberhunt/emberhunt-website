@@ -24,6 +24,11 @@ angular.module('gameController', [])
 			}
 		};
 
+		Game.getLogFileName().success((data) => {
+			$scope.laoding = false;
+			$scope.logFileName = data;
+		});
+
 		window.setInterval(function(){
 			Game.getLog().success((data) => {
 				$scope.loading = false;

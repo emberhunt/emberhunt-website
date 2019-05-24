@@ -56,6 +56,10 @@ module.exports = function (app) {
         res.status(200).send(fs.readFileSync(logfile, 'utf8'));
     });
 
+    app.get('/api/logFileName', (req, res) => {
+        res.status(200).send(logfile);
+    });
+
     app.post('/api/sendCommand', (req, res) => {
         sendCommandInternal(req.body.text + "\n", res);
     });
