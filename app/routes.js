@@ -1,14 +1,16 @@
 const net = require('net');
+const fs = require('fs');
+
+const logfile = process.env.GAME_OUTPUT_LOG || "/srv/emberhunt/server_logs/server_log.txt";
+const tcpport = process.env.GAMETCPPORT || 11234
+const host = process.env.GAMEHOST || 'game'
 
 function sendCommandInternal(command, res) {
-    const tcpport = process.env.GAMETCPPORT || 11234
-    const host = process.env.GAMEHOST || 'game'
-
     // Create a new TCP client.
     const client = new net.Socket();
     client.on('error', (err) => {console.log(err)});
     // Send a connection request to the server.
-    client.connect({ port: tcpport, host: host }, function() {
+    client.connect({ port: tcpport, host: host }, () => {
         // If there is no error, the server has accepted the request and created a new 
         // socket dedicated to us.
 
@@ -18,7 +20,7 @@ function sendCommandInternal(command, res) {
         // but this will be guarded behind some authentication in the future
         client.write('emberhunt\n');
         var bufferSize = 0;
-        client.on('data', function(chunk) {
+        client.on('data', (chunk) => {
             if (`${chunk.toString()}`.includes("authenticated")) {
                 // Wait to be authenticated
                 bufferSize = 0;
@@ -40,17 +42,18 @@ function sendCommandInternal(command, res) {
 
 module.exports = function (app) {
 
-    app.get('/api/fps', function (req, res ) {
+    app.get('/api/fps', (req, res ) => {
         sendCommandInternal('fps\n', res);
     });
 
-    app.get('/api/help', function (req, res ) {
+    app.get('/api/help', (req, res ) => {
         sendCommandInternal('help\n', res);
     });
 
-    app.get('/api/gamelog', function (req, res ) {
+    app.get('/api/gamelog', (req, res ) => {
         // Grab the game log
-        res.download(path.resolve("/srv/emberhunt/server_logs/server_log.txt"));
+        //res.download(path.resolve("/srv/emberhunt/server_logs/server_log.txt"));
+        res.status(200).send(fs.readFileSync(logfile, 'utf8'));
     });
 
     app.post('/api/sendCommand', (req, res) => {
@@ -58,11 +61,11 @@ module.exports = function (app) {
     });
 
     // application -------------------------------------------------------------
-    app.get('*', function (req, res) {
+    app.get('*', (req, res) => {
         res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
     });
 
-    app.get('/log', function (req, res) {
+    app.get('/log', (req, res) => {
         res.sendFile(__dirname + '/public/index.html');
     });
 };

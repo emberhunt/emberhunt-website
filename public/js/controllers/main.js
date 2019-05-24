@@ -23,4 +23,11 @@ angular.module('gameController', [])
 				});
 			}
 		};
+
+		window.setInterval(function(){
+			Game.getLog().success((data) => {
+				$scope.loading = false;
+				$scope.log = data;
+			});
+		}, 2000);
 	}]);

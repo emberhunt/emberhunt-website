@@ -6,6 +6,9 @@ angular.module('gameService', [])
 		return {
 			sendCommand : function(command) {
 				return $http.post('/api/sendCommand', command);
+			},
+			getLog : function(command) {
+				return $http.get('/api/gamelog');
 			}
 		}
 	}]);
