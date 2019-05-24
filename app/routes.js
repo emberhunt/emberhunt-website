@@ -17,9 +17,13 @@ function sendCommandInternal(command, res) {
         // For now I just include the password 
         // but this will be guarded behind some authentication in the future
         client.write('emberhunt\n');
-        client.write(command);
         var bufferSize = 0;
         client.on('data', function(chunk) {
+            if (`${chunk.toString()}`.includes("authenticated")) {
+                // Wait to be authenticated
+                bufferSize = 0;
+                client.write(command);
+            }
             if (bufferSize == 0) {
                 // The first response back is the size of the incoming buffer
                 bufferSize = chunk.readUInt32LE(0);
@@ -44,6 +48,11 @@ module.exports = function (app) {
         sendCommandInternal('help\n', res);
     });
 
+    app.get('/api/gamelog', function (req, res ) {
+        // Grab the game log
+        res.download(path.resolve("/srv/emberhunt/server_logs/server_log.txt"));
+    });
+
     app.post('/api/sendCommand', (req, res) => {
         sendCommandInternal(req.body.text + "\n", res);
     });
@@ -51,5 +60,9 @@ module.exports = function (app) {
     // application -------------------------------------------------------------
     app.get('*', function (req, res) {
         res.sendFile(__dirname + '/public/index.html'); // load the single view file (angular will handle the page changes on the front-end)
+    });
+
+    app.get('/log', function (req, res) {
+        res.sendFile(__dirname + '/public/index.html');
     });
 };
