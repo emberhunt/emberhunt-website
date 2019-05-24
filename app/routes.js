@@ -1,7 +1,7 @@
 const net = require('net');
 const fs = require('fs');
 
-const logfile = process.env.GAME_OUTPUT_LOG || "/srv/emberhunt/server_logs/server_log.txt";
+const logfile = process.env.GAME_OUTPUT_LOG || "/var/log/server_log.txt";
 const tcpport = process.env.GAMETCPPORT || 11234
 const host = process.env.GAMEHOST || 'game'
 
