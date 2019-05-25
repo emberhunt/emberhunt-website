@@ -10,9 +10,10 @@ import { GameService } from 'src/app/services/game.service';
 export class ServerCommanderComponent implements OnInit {
     commandFormData = { text: 'fps' };
     loading = true;
-    logFileName = ""
-    allData = "";
-    log = "";
+    logFileName = "";
+    commandTextWithCommand = "$ " + this.commandFormData.text;
+    commandText = this.commandTextWithCommand;
+    gameServerLog = "";
 
     constructor(private gameService: GameService) { }
 
@@ -25,7 +26,7 @@ export class ServerCommanderComponent implements OnInit {
         setInterval(() => {
             this.gameService.getLog().subscribe((data: string) => {
                 this.loading = false;
-                this.log = data;
+                this.gameServerLog = data;
             })
         }, 2000);
     }
@@ -39,13 +40,18 @@ export class ServerCommanderComponent implements OnInit {
 
     handleCommandResponse(response) {
         this.loading = false;
-        this.allData += response;
+        this.commandTextWithCommand += '\n' + response + '$ ';
+        this.commandText = this.commandTextWithCommand;
         this.commandFormData.text = "";
         setTimeout(() => {
             // this is not the angular way to do it but I don't want to look it up
             const elem = document.getElementById('command-window');
             elem.scrollTop = elem.scrollHeight;
         }, 1);
+    }
+
+    commandTextChanged() {
+        this.commandTextWithCommand = this.commandText + this.commandFormData.text;
     }
 
 }
