@@ -6,29 +6,6 @@ angular.module('gameController', [])
 		$scope.loading = true;
 		$scope.allData = '';
 
-		// GET =====================================================================
-		// when landing on the page, get all todos and show them
-		// use the service to get all the todos
-		Game.getFPS()
-			.success(function(data) {
-				$scope.fps = data;
-				$scope.loading = false;
-			});
-
-		$scope.getFPS = () => {
-			Game.getFPS().success((data) => {
-				$scope.loading = false;
-				$scope.fps = data;
-			});
-		};
-
-		$scope.getHelp = () => {
-			Game.getHelp().success((data) => {
-				$scope.loading = false;
-				$scope.help = data;
-			});
-		};
-
 		$scope.sendCommand = () => {
 			// validate the formData to make sure that something is there
 			// if form is empty, nothing will happen
@@ -46,4 +23,16 @@ angular.module('gameController', [])
 				});
 			}
 		};
+
+		Game.getLogFileName().success((data) => {
+			$scope.laoding = false;
+			$scope.logFileName = data;
+		});
+
+		window.setInterval(function(){
+			Game.getLog().success((data) => {
+				$scope.loading = false;
+				$scope.log = data;
+			});
+		}, 2000);
 	}]);

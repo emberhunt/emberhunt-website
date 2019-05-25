@@ -4,14 +4,14 @@ angular.module('gameService', [])
 	// each function returns a promise object 
 	.factory('Game', ['$http',function($http) {
 		return {
-			getFPS : function() {
-				return $http.get('/api/fps');
-			},
-			getHelp : function() {
-				return $http.get('/api/help');
-			},
 			sendCommand : function(command) {
 				return $http.post('/api/sendCommand', command);
+			},
+			getLog : function() {
+				return $http.get('/api/gamelog');
+			},
+			getLogFileName : function() {
+				return $http.get('/api/logFileName');
 			}
 		}
 	}]);
