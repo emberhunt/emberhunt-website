@@ -1,0 +1,29 @@
+<div class="container">
+		<div class="column">
+
+			<div class="panel panel-default panel-heading col-lg-6 text-center">Command Window</div>
+			<div class="panel panel-default panel-heading col-lg-6 text-center">Log File: {{ logFileName }}</div>
+			<div id="command-window" class="panel panel-default col-lg-6" style="height: 500px;max-height: 500px;overflow: auto;">
+				<!-- <div class="panel panel-heading col-lg-6">Command Window</div> -->
+				<pre class=".pre-scrollable" style="height: 0;border:0;padding:0;margin-left: -12px">{{ allData }}</pre>
+			</div>
+			<div id="command-window2" class="panel panel-default col-lg-6" style="height: 500px;max-height: 500px;overflow: auto;">
+				<!-- <div class="panel panel-heading">Log File: {{ logFileName }}</div> -->
+				<pre class=".pre-scrollable" style="height: 0;border:0;padding:0;margin-left: -12px">{{ log }}</pre>
+			</div>
+		</div>
+		<div id="send-form" class="row">
+			<div class="col-sm-4 col-sm-offset-4 text-center">
+				<form>
+					<div class="form-group">
+						<input [(ngModel)]="commandFormData.text" id="send-command" name="text" type="text" class="form-control input-lg text-center" autocomplete="off" placeholder="Command">
+					</div>
+					<button type="submit" class="btn btn-primary btn-lg" (click)="sendCommand()">Send</button>
+				</form>
+			</div>
+		</div>
+
+		<div class="text-center text-muted">
+			<p>A demo by SecurityRisk.</p>
+		</div>
+</div>
