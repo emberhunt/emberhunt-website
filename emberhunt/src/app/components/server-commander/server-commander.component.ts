@@ -26,13 +26,15 @@ export class ServerCommanderComponent implements OnInit {
         setInterval(() => {
             this.gameService.getLog().subscribe((data: string) => {
                 this.loading = false;
-                data = data.replace(/(\$ .*?)\r\n/g, "<b>$1</b>\r\n");
+                data = data.replace(new RegExp("(\\$ .*)","g"), "<b>$1</b>")
+                var shouldScrollToBottom = this.gameServerLog != data
                 this.gameServerLog = data;
-                setTimeout(() => {
-                    // this is not the angular way to do it but I don't want to look it up
-                    const elem = document.getElementById('command-window2');
-                    elem.scrollTop = elem.scrollHeight;
-                }, 1);
+                if (shouldScrollToBottom)
+                    setTimeout(() => {
+                        // this is not the angular way to do it but I don't want to look it up
+                        const elem = document.getElementById('command-window2');
+                        elem.scrollTop = elem.scrollHeight;
+                    }, 1);
             })
         }, 2000);
     }
