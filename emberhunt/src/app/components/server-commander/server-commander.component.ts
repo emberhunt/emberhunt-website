@@ -26,7 +26,13 @@ export class ServerCommanderComponent implements OnInit {
         setInterval(() => {
             this.gameService.getLog().subscribe((data: string) => {
                 this.loading = false;
+                data = data.replace(/(\$ .*?)\r\n/g, "<b>$1</b>\r\n");
                 this.gameServerLog = data;
+                setTimeout(() => {
+                    // this is not the angular way to do it but I don't want to look it up
+                    const elem = document.getElementById('command-window2');
+                    elem.scrollTop = elem.scrollHeight;
+                }, 1);
             })
         }, 2000);
     }

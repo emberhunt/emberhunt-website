@@ -9,7 +9,7 @@
 			</div>
 			<div id="command-window2" class="panel panel-default col-lg-6 command-panel">
 				<!-- <div class="panel panel-heading">Log File: {{ logFileName }}</div> -->
-				<pre class=".pre-scrollable pre-command-window">{{ gameServerLog }}</pre>
+				<pre class=".pre-scrollable pre-command-window" [innerHTML]="gameServerLog"></pre>
 			</div>
 		</div>
 		<div id="send-form" class="row">
