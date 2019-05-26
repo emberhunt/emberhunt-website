@@ -27,14 +27,7 @@ export class ServerCommanderComponent implements OnInit {
             this.gameService.getLog().subscribe((data: string) => {
                 this.loading = false;
                 data = data.replace(new RegExp("(\\$ .*)","g"), "<b>$1</b>")
-                var shouldScrollToBottom = this.gameServerLog != data
                 this.gameServerLog = data;
-                if (shouldScrollToBottom)
-                    setTimeout(() => {
-                        // this is not the angular way to do it but I don't want to look it up
-                        const elem = document.getElementById('command-window2');
-                        elem.scrollTop = elem.scrollHeight;
-                    }, 1);
             })
         }, 2000);
     }
@@ -51,11 +44,6 @@ export class ServerCommanderComponent implements OnInit {
         this.commandTextWithCommand += '\n' + response + '$ ';
         this.commandText = this.commandTextWithCommand;
         this.commandFormData.text = "";
-        setTimeout(() => {
-            // this is not the angular way to do it but I don't want to look it up
-            const elem = document.getElementById('command-window');
-            elem.scrollTop = elem.scrollHeight;
-        }, 1);
     }
 
     commandTextChanged() {
