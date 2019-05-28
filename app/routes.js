@@ -1,16 +1,13 @@
 const net = require('net');
 const fs = require('fs');
-
-const logfile = process.env.GAME_OUTPUT_LOG || "/var/log/server_log.txt";
-const tcpport = process.env.GAMETCPPORT || 11234
-const host = process.env.GAMEHOST || 'game'
+const Global = require('../globals.js');
 
 function sendCommandInternal(command, res) {
     // Create a new TCP client.
     const client = new net.Socket();
     client.on('error', (err) => {console.log(err)});
     // Send a connection request to the server.
-    client.connect({ port: tcpport, host: host }, () => {
+    client.connect({ port: Global.tcpport, host: Global.host }, () => {
         // If there is no error, the server has accepted the request and created a new 
         // socket dedicated to us.
 
@@ -53,11 +50,11 @@ module.exports = function (app) {
     app.get('/api/gamelog', (req, res ) => {
         // Grab the game log
         //res.download(path.resolve("/srv/emberhunt/server_logs/server_log.txt"));
-        res.status(200).send(fs.readFileSync(logfile, 'utf8'));
+        res.status(200).send(fs.readFileSync(Global.logfile, 'utf8'));
     });
 
     app.get('/api/logFileName', (req, res) => {
-        res.status(200).send(logfile);
+        res.status(200).send(Global.logfile);
     });
 
     app.post('/api/sendCommand', (req, res) => {
