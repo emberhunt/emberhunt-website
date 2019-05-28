@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+// var mongoose = require('mongoose');
 
-module.exports = mongoose.model('Game', {
-    text: {
-        type: String,
-        default: ''
-    }
-});
+// module.exports = mongoose.model('Game', {
+//     text: {
+//         type: String,
+//         default: ''
+//     }
+// });
