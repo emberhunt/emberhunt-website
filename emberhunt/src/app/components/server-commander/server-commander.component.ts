@@ -26,7 +26,7 @@ export class ServerCommanderComponent implements OnInit {
         setInterval(() => {
             this.gameService.getLog().subscribe((data: string) => {
                 this.loading = false;
-                data = data.replace(new RegExp("(\\$ .*)","g"), "<b>$1</b>")
+                data = this.escapeHtml(data).replace(new RegExp("(\\$ .*)","g"), "<b>$1</b>")
                 this.gameServerLog = data;
             })
         }, 2000);
@@ -41,13 +41,22 @@ export class ServerCommanderComponent implements OnInit {
 
     handleCommandResponse(response) {
         this.loading = false;
-        this.commandTextWithCommand += '\n' + response + '$ ';
+        this.commandTextWithCommand += '\n' + this.escapeHtml(response) + '$ ';
         this.commandText = this.commandTextWithCommand;
         this.commandFormData.text = "";
     }
 
     commandTextChanged() {
-        this.commandTextWithCommand = this.commandText + this.commandFormData.text;
+        this.commandTextWithCommand = this.escapeHtml(this.commandText + this.commandFormData.text);
+    }
+
+    escapeHtml(unsafe) {
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
 }
