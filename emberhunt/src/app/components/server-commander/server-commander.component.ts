@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from 'src/app/services/game.service';
-
+import Convert from 'ansi-to-html';
+var convert = new Convert();
 
 @Component({
     selector: 'app-server-commander',
@@ -26,7 +27,7 @@ export class ServerCommanderComponent implements OnInit {
         setInterval(() => {
             this.gameService.getLog().subscribe((data: string) => {
                 this.loading = false;
-                data = this.escapeHtml(data).replace(new RegExp("(\\$ .*)","g"), "<b>$1</b>")
+                data = convert.toHtml(this.escapeHtml(data)).replace(new RegExp("(\\$ .*)","g"), "<b>$1</b>")
                 this.gameServerLog = data;
             })
         }, 2000);
@@ -41,13 +42,13 @@ export class ServerCommanderComponent implements OnInit {
 
     handleCommandResponse(response) {
         this.loading = false;
-        this.commandTextWithCommand += '\n' + this.escapeHtml(response) + '$ ';
+        this.commandTextWithCommand += '\n' + this.escapeHtml(convert.toHtml(response)) + '$ ';
         this.commandText = this.commandTextWithCommand;
         this.commandFormData.text = "";
     }
 
     commandTextChanged() {
-        this.commandTextWithCommand = this.escapeHtml(this.commandText + this.commandFormData.text);
+        this.commandTextWithCommand = this.escapeHtml(convert.toHtml(this.commandText + this.commandFormData.text));
     }
 
     escapeHtml(unsafe) {
