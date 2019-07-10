@@ -5,7 +5,7 @@ const Global = require('../globals.js');
 function sendCommandInternal(command, res) {
     // Create a new TCP client.
     const client = new net.Socket();
-    client.on('error', (err) => {console.log(err)});
+    client.on('error', (err) => {});
     // Send a connection request to the server.
     client.connect({ port: Global.tcpport, host: Global.host }, () => {
         // If there is no error, the server has accepted the request and created a new 
